@@ -26,7 +26,7 @@ The Egyptian real estate market has experienced significant growth and volatilit
 
 Input property details such as location,bedrooms, bathd, size(sqm), type
 
-![predction](./images/Capture.png)
+![predction](./images/Capture.PNG)
 
 
 ## License
