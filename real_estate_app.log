@@ -1,0 +1,43 @@
+2025-05-12 12:28:49,793 - INFO - Loading model and columns...
+2025-05-12 12:28:51,551 - INFO - Model and columns loaded successfully
+2025-05-12 12:28:51,552 - INFO - Extracting categories with prefix: location_
+2025-05-12 12:28:51,552 - INFO - Extracting categories with prefix: property_type_
+2025-05-12 12:28:51,665 - INFO - Starting application server
+2025-05-12 12:28:51,666 - INFO - Created static directory
+2025-05-12 12:28:51,706 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.32.93:5000
+2025-05-12 12:28:51,707 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 12:28:51,710 - INFO -  * Restarting with stat
+2025-05-12 12:28:52,436 - INFO - Loading model and columns...
+2025-05-12 12:28:53,918 - INFO - Model and columns loaded successfully
+2025-05-12 12:28:53,919 - INFO - Extracting categories with prefix: location_
+2025-05-12 12:28:53,919 - INFO - Extracting categories with prefix: property_type_
+2025-05-12 12:28:53,933 - INFO - Starting application server
+2025-05-12 12:28:53,947 - WARNING -  * Debugger is active!
+2025-05-12 12:28:53,955 - INFO -  * Debugger PIN: 119-910-743
+2025-05-12 12:31:44,171 - INFO - Serving index page
+2025-05-12 12:31:44,279 - INFO - 127.0.0.1 - - [12/May/2025 12:31:44] "GET / HTTP/1.1" 200 -
+2025-05-12 12:35:56,260 - INFO - Serving index page
+2025-05-12 12:35:56,261 - INFO - 127.0.0.1 - - [12/May/2025 12:35:56] "GET / HTTP/1.1" 200 -
+2025-05-12 12:54:49,735 - INFO - Loading model and columns...
+2025-05-12 12:54:51,716 - INFO - Model and columns loaded successfully
+2025-05-12 12:54:51,717 - INFO - Extracting categories with prefix: location_
+2025-05-12 12:54:51,717 - INFO - Extracting categories with prefix: property_type_
+2025-05-12 12:54:51,730 - INFO - Starting application server
+2025-05-12 12:54:51,847 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.32.93:5000
+2025-05-12 12:54:51,848 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 12:54:51,852 - INFO -  * Restarting with stat
+2025-05-12 12:54:52,761 - INFO - Loading model and columns...
+2025-05-12 12:54:55,270 - INFO - Model and columns loaded successfully
+2025-05-12 12:54:55,271 - INFO - Extracting categories with prefix: location_
+2025-05-12 12:54:55,272 - INFO - Extracting categories with prefix: property_type_
+2025-05-12 12:54:55,287 - INFO - Starting application server
+2025-05-12 12:54:55,308 - WARNING -  * Debugger is active!
+2025-05-12 12:54:55,315 - INFO -  * Debugger PIN: 119-910-743
+2025-05-12 12:54:55,901 - INFO - Serving index page
+2025-05-12 12:54:55,936 - INFO - 127.0.0.1 - - [12/May/2025 12:54:55] "GET / HTTP/1.1" 200 -
