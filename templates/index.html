@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egypt Real Estate Price Predictor</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .number-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .number-input button {
+            background-color: var(--light-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .number-input button:hover {
+            background-color: #ddd;
+        }
+
+        .number-input input {
+            text-align: center;
+            margin: 0 10px;
+            width: 70px;
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-lg {
+            padding: 15px 40px;
+            font-size: 20px;
+        }
+
+        .btn-center {
+            display: block;
+            margin: 20px auto;
+            max-width: 300px;
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--light-color);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .result-price {
+            font-size: 2.5rem;
+            color: var(--success-color);
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .result-details {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+        }
+
+        .icon-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .icon-feature .icon {
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            background: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+        }
+
+        .features-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--secondary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .form-group {
+                flex: 100%;
+            }
+            
+            .btn-lg {
+                width: 100%;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Egypt Real Estate Price Predictor</h1>
+            <p>Get accurate price estimates for properties across Egypt</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Property Details</h2>
+            <div id="error-message" class="error-message"></div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
+                    <select id="location" required>
+                        <option value="" disabled selected>Select a location</option>
+                        {% for location in locations %}
+                        <option value="{{ location }}">{{ location }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="type"><i class="fas fa-home"></i> Property Type</label>
+                    <select id="type" required>
+                        <option value="" disabled selected>Select a property type</option>
+                        {% for type in types %}
+                        <option value="{{ type }}">{{ type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="beds"><i class="fas fa-bed"></i> Bedrooms</label>
+                    <div class="number-input">
+                        <button type="button" onclick="decrementValue('beds', 1)">-</button>
+                        <input type="number" id="beds" value="2" min="1" required>
+                        <button type="button" onclick="incrementValue('beds')">+</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="baths"><i class="fas fa-bath"></i> Bathrooms</label>
+                    <div class="number-input">
+                        <button type="button" onclick="decrementValue('baths', 1)">-</button>
+                        <input type="number" id="baths" value="1" min="1" required>
+                        <button type="button" onclick="incrementValue('baths')">+</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="area"><i class="fas fa-ruler-combined"></i> Area (m²)</label>
+                    <input type="number" id="area" value="100" min="50" step="10" required>
+                </div>
+            </div>
+            
+            <button id="predict-btn" class="btn btn-lg btn-center" onclick="predictPrice()">
+                <i class="fas fa-calculator"></i> Predict Price
+            </button>
+            
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Calculating the best price...</p>
+            </div>
+            
+            <div id="result" class="result-container">
+                <h3>Estimated Property Price</h3>
+                <div id="price" class="result-price">EGP 0.00</div>
+                <div id="result-details" class="result-details">
+                    Based on similar properties in the selected area
+                </div>
+                <button class="btn" onclick="window.location.reload()">
+                    <i class="fas fa-redo"></i> Start New Prediction
+                </button>
+            </div>
+        </div>
+        
+        <div class="features-row">
+            <div class="feature-card">
+                <div class="icon-feature">
+                    <div class="icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Advanced ML Algorithm</h3>
+                </div>
+                <p>Our prediction model uses advanced machine learning techniques trained on thousands of property listings across Egypt.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon-feature">
+                    <div class="icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Location-Based</h3>
+                </div>
+                <p>We factor in location-specific data to provide the most accurate pricing estimates for different areas.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon-feature">
+                    <div class="icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Regularly Updated</h3>
+                </div>
+                <p>Our models are regularly updated with the latest market data to ensure relevant predictions.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Egypt Real Estate Price Predictor // Mostafa Ashraf</p>
+        </div>
+    </footer>
+
+    <script>
+        function incrementValue(id) {
+            const input = document.getElementById(id);
+            input.value = parseInt(input.value) + 1;
+        }
+        
+        function decrementValue(id, min) {
+            const input = document.getElementById(id);
+            const newValue = parseInt(input.value) - 1;
+            if (newValue >= min) {
+                input.value = newValue;
+            }
+        }
+        
+        function validateInputs() {
+            const location = document.getElementById('location').value;
+            const type = document.getElementById('type').value;
+            const beds = document.getElementById('beds').value;
+            const baths = document.getElementById('baths').value;
+            const area = document.getElementById('area').value;
+            
+            const errorMessage = document.getElementById('error-message');
+            
+            if (!location) {
+                errorMessage.textContent = "Please select a location";
+                errorMessage.style.display = "block";
+                return false;
+            }
+            
+            if (!type) {
+                errorMessage.textContent = "Please select a property type";
+                errorMessage.style.display = "block";
+                return false;
+            }
+            
+            if (!beds || beds < 1) {
+                errorMessage.textContent = "Please enter at least 1 bedroom";
+                errorMessage.style.display = "block";
+                return false;
+            }
+            
+            if (!baths || baths < 1) {
+                errorMessage.textContent = "Please enter at least 1 bathroom";
+                errorMessage.style.display = "block";
+                return false;
+            }
+            
+            if (!area || area < 50) {
+                errorMessage.textContent = "Please enter area of at least 50 m²";
+                errorMessage.style.display = "block";
+                return false;
+            }
+            
+            errorMessage.style.display = "none";
+            return true;
+        }
+        
+        function updateResultDetails(location, beds, baths, area, type) {
+            const details = document.getElementById('result-details');
+            details.innerHTML = `${beds} bed, ${baths} bath ${type.toLowerCase()} with ${area} m² in ${location}`;
+        }
+        
+        function predictPrice() {
+            if (!validateInputs()) {
+                return;
+            }
+            
+            const location = document.getElementById('location').value;
+            const type = document.getElementById('type').value;
+            const beds = parseInt(document.getElementById('beds').value);
+            const baths = parseInt(document.getElementById('baths').value);
+            const area = parseFloat(document.getElementById('area').value);
+            
+            // Show loading spinner
+            document.getElementById('loading').style.display = "block";
+            document.getElementById('predict-btn').style.display = "none";
+            
+            // Prepare data for API call
+            const data = {
+                location: location,
+                type: type,
+                beds: beds,
+                baths: baths,
+                area: area
+            };
+            
+            // Make API call
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.error || 'Something went wrong');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Hide loading spinner
+                document.getElementById('loading').style.display = "none";
+                
+                // Show result
+                document.getElementById('price').textContent = data.predicted_price;
+                updateResultDetails(location, beds, baths, area, type);
+                document.getElementById('result').style.display = "block";
+            })
+            .catch(error => {
+                // Hide loading spinner
+                document.getElementById('loading').style.display = "none";
+                document.getElementById('predict-btn').style.display = "block";
+                
+                // Show error
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = "block";
+            });
+        }
+    </script>
+</body>
+</html>
